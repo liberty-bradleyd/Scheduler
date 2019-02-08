@@ -64,7 +64,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull EventAdapter.ViewHolder viewHolder, int i) {
 
-        Toast.makeText(context, Integer.toString(listOfEvents.size()), Toast.LENGTH_SHORT).show();
         ArrayList<String> tempEvent = listOfEvents.get(i);
 
         SimpleDateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy");

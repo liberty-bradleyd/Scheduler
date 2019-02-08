@@ -79,6 +79,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="250dp"
         android:scrollbars="vertical"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
