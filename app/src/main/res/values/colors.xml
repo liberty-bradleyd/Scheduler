@@ -8,4 +8,7 @@
     <color name="colorDateButton">#40e0d0</color>
     <color name="colorLinkButton">#ffa500</color>
     <color name="colorGreen">#4acd27</color>
+    <color name="colorDeleteBg">#D13939</color>
+    <color name="colorTextBoxLine">#989898</color>
+    <color name="colorError">#D32F2F</color>
 </resources>

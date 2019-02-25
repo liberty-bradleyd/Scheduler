@@ -1,9 +1,11 @@
 package com.stratisapps.www.scheduler;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -19,23 +21,28 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
     private Context context = null;
     private ArrayList<ArrayList<String>> listOfEvents = null;
+    private Activity activity = null;
     private SharedPreferences sharedPreferences = null;
     private SharedPreferences.Editor editor = null;
+    private ArrayList<Button> listTitleViews = new ArrayList<>();
 
-    public EventAdapter(Context context){
+    public EventAdapter(Context context, Activity activity){
         this.context = context;
         listOfEvents = new ArrayList<>();
+        this.activity = activity;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -54,7 +61,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, int pos) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_custom_layout, viewGroup, false);
         sharedPreferences = viewGroup.getContext().getSharedPreferences("AppData", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -62,9 +69,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final EventAdapter.ViewHolder viewHolder, int pos) {
 
-        ArrayList<String> tempEvent = listOfEvents.get(i);
+        ArrayList<String> tempEvent = listOfEvents.get(pos);
 
         SimpleDateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy");
         String month = null;
@@ -77,6 +84,38 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             e.printStackTrace();
         }
 
+        listTitleViews.add(viewHolder.category);
+        final ArrayList<String> finalTempEvent = tempEvent;
+        final int finalPos = pos;
+        setOnClick(viewHolder.itemView, finalTempEvent, finalPos);
+        setOnClick(viewHolder.category, finalTempEvent, finalPos);
+        setOnClick(viewHolder.title, finalTempEvent, finalPos);
+        setOnClick(viewHolder.date, finalTempEvent, finalPos);
+        setTitleColor(viewHolder.category, tempEvent);
+        viewHolder.category.setText(tempEvent.get(0));
+        viewHolder.title.setText(tempEvent.get(1));
+        viewHolder.date.setText(month + "\n" + day);
+    }
+
+    public void setOnClick(View v, final ArrayList<String> finalTempEvent, final int finalPos){
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean initialChange = true;
+                for(int i = 0; i < listTitleViews.size(); i++){
+                    if(listTitleViews.get(i).getText().equals(listTitleViews.get(finalPos).getText())){
+                        if(initialChange){
+                            editor.putString(finalTempEvent.get(0), "").apply();
+                            initialChange = false;
+                        }
+                        setTitleColor(listTitleViews.get(i), finalTempEvent);
+                    }
+                }
+            }
+        });
+    }
+
+    public void setTitleColor(Button button, ArrayList<String> tempEvent){
         String categoryColorVal = sharedPreferences.getString(tempEvent.get(0), "");
         Random randomColorVal = new Random();
         int randRVal = randomColorVal.nextInt(256);
@@ -96,12 +135,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             randGVal = Integer.parseInt(split[1]);
             randBVal = Integer.parseInt(split[2]);
         }
-
-        viewHolder.category.setBackgroundTintList(ColorStateList.valueOf(Color.argb(255,randRVal, randGVal, randBVal)));
-
-        viewHolder.category.setText(tempEvent.get(0));
-        viewHolder.title.setText(tempEvent.get(1));
-        viewHolder.date.setText(month + "\n" + day);
+        button.setBackgroundTintList(ColorStateList.valueOf(Color.argb(255,randRVal, randGVal, randBVal)));
     }
 
     @Override
@@ -116,7 +150,27 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     public void setInitialData(ArrayList<ArrayList<String>> arrayList){
         listOfEvents = arrayList;
+        listTitleViews = new ArrayList<>();
+        notifyDataSetChanged();
     }
 
+    public void remove(ArrayList<ArrayList<String>> arrayList, int pos){
+        listOfEvents = arrayList;
+        notifyItemRemoved(pos);
+        notifyItemRangeChanged(pos, listOfEvents.size());
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                listTitleViews = new ArrayList<>();
+                notifyDataSetChanged();
+            }
+        }, 800);
+        try {
+            CountEvents countEvents = new CountEvents(context, activity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

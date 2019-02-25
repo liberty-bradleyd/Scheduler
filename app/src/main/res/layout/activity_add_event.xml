@@ -25,73 +25,114 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back" />
 
-    <EditText
-        android:id="@+id/category"
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+        android:id="@+id/categoryBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="Category"
-        android:inputType="textPersonName"
+        app:primaryColor="@color/colorPrimary"
+        app:secondaryColor="@color/colorTextBoxLine"
+        app:labelText="Category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-    <EditText
-        android:id="@+id/title"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
-        android:hint="Title"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category" />
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+            android:id="@+id/category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"/>
 
-    <EditText
-        android:id="@+id/reminder"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
-        android:hint="Reminder"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-    <EditText
-        android:id="@+id/date"
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+        android:id="@+id/titleBox"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginTop="103dp"
         android:ems="10"
-        android:hint="Date"
-        android:inputType="date"
+        app:primaryColor="@color/colorPrimary"
+        app:secondaryColor="@color/colorTextBoxLine"
+        app:labelText="Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reminder" />
+        app:layout_constraintTop_toTopOf="@+id/categoryBox">
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:maxLines="1"/>
+
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+        android:id="@+id/reminderBox"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="103dp"
+        android:ems="10"
+        app:primaryColor="@color/colorPrimary"
+        app:secondaryColor="@color/colorTextBoxLine"
+        app:labelText="Reminder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/titleBox">
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+            android:id="@+id/reminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLines="1" />
+
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+        android:id="@+id/dateBox"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="103dp"
+        android:ems="10"
+        app:primaryColor="@color/colorPrimary"
+        app:secondaryColor="@color/colorTextBoxLine"
+        app:labelText="Date"
+        app:endIcon="@drawable/date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/reminderBox">
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="date"
+            android:maxLines="1" />
+
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
     <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
+        android:id="@+id/addEvent"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="160dp"
         android:background="@drawable/oval_button_design"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:elevation="4dp"
@@ -99,6 +140,6 @@
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date" />
+        app:layout_constraintTop_toTopOf="@+id/dateBox" />
 
 </android.support.constraint.ConstraintLayout>

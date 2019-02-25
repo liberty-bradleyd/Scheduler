@@ -1,7 +1,10 @@
 package com.stratisapps.www.scheduler;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -12,9 +15,29 @@ import java.util.ArrayList;
 public class CountEvents {
 
     private Context context = null;
+    private Activity activity = null;
 
-    public CountEvents(Context context) throws IOException {
+    public CountEvents(Context context, Activity activity) throws IOException {
         this.context = context;
+        this.activity = activity;
+        startProcess();
+    }
+
+    public void startProcess() throws IOException {
+        Button numOfEventsView = activity.findViewById(R.id.numOfEvents);
+        int numOfEvents = count();
+        if(numOfEvents > 0){
+            if(numOfEvents < 2) {
+                numOfEventsView.setText(numOfEvents + " event");
+            }
+            else {
+                numOfEventsView.setText(numOfEvents + " events");
+            }
+            numOfEventsView.setVisibility(View.VISIBLE);
+        }
+        else{
+            numOfEventsView.setVisibility(View.INVISIBLE);
+        }
     }
 
     public int count() throws IOException {
