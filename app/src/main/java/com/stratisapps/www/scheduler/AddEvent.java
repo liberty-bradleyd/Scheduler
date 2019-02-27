@@ -65,7 +65,12 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             public void onFocusChange(View view, boolean hasFocus) {
                 if(!hasFocus){
                     if(!category.getText().toString().trim().isEmpty()){
-                        categoryBox.setSecondaryColor(getResources().getColor(R.color.colorPrimary));
+                        if(category.getText().toString().length() > 16){
+                            categoryBox.setSecondaryColor(getResources().getColor(R.color.colorError));
+                        }
+                        else {
+                            categoryBox.setSecondaryColor(getResources().getColor(R.color.colorPrimary));
+                        }
                     }
                 }
             }
@@ -199,6 +204,11 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                     categoryBox.setSecondaryColor(getResources().getColor(R.color.colorError));
                     categoryBox.setErrorColor(getResources().getColor(R.color.colorError));
                     categoryBox.setError("Please enter a category", true);
+                    passedAllTests = false;
+                }
+                else if(categoryString.length() > 16){
+                    categoryBox.setErrorColor(getResources().getColor(R.color.colorError));
+                    categoryBox.setError("Please reduce the number of characters", true);
                     passedAllTests = false;
                 }
                 else {

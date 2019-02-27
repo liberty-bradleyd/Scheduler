@@ -36,7 +36,7 @@
         app:primaryColor="@color/colorPrimary"
         app:secondaryColor="@color/colorTextBoxLine"
         app:labelText="Category"
-        app:maxCharacters="14"
+        app:maxCharacters="16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
