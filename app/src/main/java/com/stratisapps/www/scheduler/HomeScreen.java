@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ public class HomeScreen extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager = null;
     private SwipeController swipeController = null;
     private ItemTouchHelper itemTouchHelper = null;
+    private SwipeRefreshLayout refreshLayout = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class HomeScreen extends AppCompatActivity {
         });
         recyclerView = findViewById(R.id.recycleView);
         mLayoutManager = new LinearLayoutManager(this);
+        refreshLayout = findViewById(R.id.refreshLayout);
         recyclerView.setLayoutManager(mLayoutManager);
         eventAdapter = new EventAdapter(getApplicationContext(), this);
         recyclerView.setAdapter(eventAdapter);
@@ -68,6 +71,18 @@ public class HomeScreen extends AppCompatActivity {
             editor.putBoolean("NeedsInitialization", false).apply();
         }
 
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadPage();
+            }
+        });
+
+        loadPage();
+    }
+
+    public void loadPage(){
         // Starts the process of loading the events, if any, into the ListView while processing on the bg thread
         showEvents();
 
@@ -78,6 +93,7 @@ public class HomeScreen extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        refreshLayout.setRefreshing(false);
     }
 
     public void showEvents(){
