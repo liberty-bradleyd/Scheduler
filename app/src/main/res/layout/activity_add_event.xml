@@ -33,13 +33,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        app:primaryColor="@color/colorPrimary"
-        app:secondaryColor="@color/colorTextBoxLine"
         app:labelText="Category"
-        app:maxCharacters="16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:maxCharacters="16"
+        app:primaryColor="@color/colorPrimary"
+        app:secondaryColor="@color/colorTextBoxLine">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
             android:id="@+id/category"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
             android:inputType="text"
-            android:maxLines="1"/>
+            android:maxLines="1" />
 
     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -59,12 +59,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="103dp"
         android:ems="10"
-        app:primaryColor="@color/colorPrimary"
-        app:secondaryColor="@color/colorTextBoxLine"
         app:labelText="Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/categoryBox">
+        app:layout_constraintTop_toTopOf="@+id/categoryBox"
+        app:primaryColor="@color/colorPrimary"
+        app:secondaryColor="@color/colorTextBoxLine">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
             android:id="@+id/title"
@@ -72,31 +72,6 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
             android:inputType="text"
-            android:maxLines="1"/>
-
-    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-        android:id="@+id/reminderBox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="103dp"
-        android:ems="10"
-        app:primaryColor="@color/colorPrimary"
-        app:secondaryColor="@color/colorTextBoxLine"
-        app:labelText="Reminder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/titleBox">
-
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-            android:id="@+id/reminder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:inputType="number"
             android:maxLines="1" />
 
     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
@@ -109,23 +84,61 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="103dp"
         android:ems="10"
-        app:primaryColor="@color/colorPrimary"
-        app:secondaryColor="@color/colorTextBoxLine"
-        app:labelText="Date"
         app:endIcon="@drawable/date"
+        app:labelText="Date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/reminderBox">
+        app:layout_constraintTop_toTopOf="@+id/titleBox"
+        app:primaryColor="@color/colorPrimary"
+        app:secondaryColor="@color/colorTextBoxLine">
 
         <studio.carbonylgroup.textfieldboxes.ExtendedEditText
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="date"
             android:maxLines="1" />
 
     </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+        android:id="@+id/timeBox"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="103dp"
+        android:ems="10"
+        app:endIcon="@drawable/time"
+        app:labelText="Time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dateBox"
+        app:primaryColor="@color/colorPrimary"
+        app:secondaryColor="@color/colorTextBoxLine">
+
+        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="time"
+            android:maxLines="1" />
+
+    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/reminderSwitch"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="103dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:text="Reminder"
+        android:textColor="@color/colorTextBoxLine"
+        android:theme="@style/SwitchTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/timeBox" />
 
     <Button
         android:id="@+id/addEvent"
@@ -141,6 +154,16 @@
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dateBox" />
+        app:layout_constraintTop_toTopOf="@+id/reminderSwitch" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="AM"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@+id/timeBox"
+        app:layout_constraintTop_toTopOf="@+id/timeBox" />
 
 </android.support.constraint.ConstraintLayout>

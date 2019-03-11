@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base Application Theme -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -9,6 +9,10 @@
     </style>
 
     <style name="DialogColor" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 </resources>

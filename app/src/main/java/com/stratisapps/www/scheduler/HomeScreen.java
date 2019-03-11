@@ -3,6 +3,7 @@ package com.stratisapps.www.scheduler;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -83,20 +84,6 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public void loadPage(){
-        // Starts the process of loading the events, if any, into the ListView while processing on the bg thread
-        showEvents();
-
-        calendar = Calendar.getInstance();
-        setCurrentDate();
-        try {
-            checkForEvents();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        refreshLayout.setRefreshing(false);
-    }
-
-    public void showEvents(){
         if(sharedPreferences.getBoolean("EventCondition", false)){
             new SaveEventTask(getApplicationContext(), this, eventAdapter).execute();
             editor.putBoolean("EventCondition", false).apply();
@@ -104,6 +91,9 @@ public class HomeScreen extends AppCompatActivity {
         else {
             new LoadEventsTask(getApplicationContext(),this, eventAdapter).execute();
         }
+        calendar = Calendar.getInstance();
+        setCurrentDate();
+        refreshLayout.setRefreshing(false);
     }
 
     public void setCurrentDate(){
@@ -115,10 +105,5 @@ public class HomeScreen extends AppCompatActivity {
         monthDay = new SimpleDateFormat("dd");
         TextView monthDayView = findViewById(R.id.monthDay);
         monthDayView.setText(monthDay.format(calendar.getTime()));
-    }
-
-    public void checkForEvents() throws IOException {
-        // Scans file in the background thread to check for the number of events the user currently has
-        CountEvents countEvents = new CountEvents(getApplicationContext(), this);
     }
 }

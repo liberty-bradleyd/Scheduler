@@ -110,4 +110,14 @@ public class LoadEventsTask extends AsyncTask<Void, Void, Void> {
         }
         return null;
     }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        try {
+            new CountEvents(context, activity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

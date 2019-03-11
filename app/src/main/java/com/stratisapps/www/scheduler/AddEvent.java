@@ -1,6 +1,7 @@
 package com.stratisapps.www.scheduler;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -26,17 +28,18 @@ import java.util.Date;
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
-public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
     private ExtendedEditText category = null;
     private TextFieldBoxes categoryBox = null;
     private ExtendedEditText title = null;
     private TextFieldBoxes titleBox = null;
-    private ExtendedEditText reminder = null;
-    private TextFieldBoxes reminderBox = null;
     private ExtendedEditText date = null;
     private TextFieldBoxes dateBox = null;
+    private ExtendedEditText time = null;
+    private TextFieldBoxes timeBox = null;
     private DatePickerDialog datePickerDialog = null;
+    private TimePickerDialog timePickerDialog = null;
     private boolean passedFormatTest = true;
     private Calendar calendar = Calendar.getInstance();
     private SharedPreferences sharedPreferences = null;
@@ -55,11 +58,13 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
         categoryBox = findViewById(R.id.categoryBox);
         title = findViewById(R.id.title);
         titleBox = findViewById(R.id.titleBox);
-        reminder = findViewById(R.id.reminder);
-        reminderBox = findViewById(R.id.reminderBox);
         date = findViewById(R.id.date);
         dateBox = findViewById(R.id.dateBox);
+        time = findViewById(R.id.time);
+        timeBox = findViewById(R.id.timeBox);
         datePickerDialog = new DatePickerDialog(this, R.style.DialogColor,this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        timePickerDialog = new TimePickerDialog(this, R.style.DialogColor,this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
+        fillDateBox(calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR));
         category.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -85,20 +90,6 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                 }
             }
         });
-        reminder.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(!hasFocus){
-                    if(!reminder.getText().toString().trim().isEmpty()){
-                        reminderBox.setSecondaryColor(getResources().getColor(R.color.colorPrimary));
-                    }
-                    reminder.setHint(null);
-                }
-                else{
-                    reminder.setHint("Number of Days");
-                }
-            }
-        });
         date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -109,7 +100,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                     date.setHint(null);
                 }
                 else{
-                    date.setHint("MM/dd/yyyy");
+                    date.setHint("mm/dd/yyyy");
                 }
             }
         });
@@ -117,6 +108,26 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(View view) {
                 datePickerDialog.show();
+            }
+        });
+        time.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(!hasFocus){
+                    if(!time.getText().toString().trim().isEmpty() && passedFormatTest){
+                        timeBox.setSecondaryColor(getResources().getColor(R.color.colorPrimary));
+                    }
+                    time.setHint(null);
+                }
+                else{
+                    time.setHint("hh:mm");
+                }
+            }
+        });
+        timeBox.getEndIconImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timePickerDialog.show();
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -133,9 +144,51 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             public void onClick(View view) {
                 String categoryString = category.getText().toString();
                 String titleString = title.getText().toString();
-                String reminderString = reminder.getText().toString();
                 String dateString = date.getText().toString();
+                String timeString = time.getText().toString();
                 boolean passedAllTests = true;
+                if(timeString.isEmpty()){
+                    timeBox.setSecondaryColor(getResources().getColor(R.color.colorError));
+                    timeBox.setErrorColor(getResources().getColor(R.color.colorError));
+                    timeBox.setError("Please enter a time", true);
+                    passedAllTests = false;
+                }
+                else {
+                    SimpleDateFormat originalFormat = new SimpleDateFormat("hh:mm");
+                    Date test = null;
+                    try{
+                        test = originalFormat.parse(timeString);
+                        passedFormatTest = true;
+                    }
+                    catch (Exception e ){
+                        passedFormatTest = false;
+                    }
+                    if(passedFormatTest && timeString.length() <= 5 && timeString.substring(timeString.indexOf(":") + 1, timeString.length()).length() == 2 &&
+                            Integer.valueOf(timeString.substring(0, timeString.indexOf(":"))) <= 12 && Integer.valueOf(timeString.substring(timeString.indexOf(":") + 1, timeString.length())) < 60){
+                        Date currentDate = null;
+                        try {
+                            currentDate = originalFormat.parse(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + String.valueOf(calendar.get(Calendar.MINUTE)));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        if(currentDate.after(test)){
+                            timeBox.setSecondaryColor(getResources().getColor(R.color.colorError));
+                            timeBox.setErrorColor(getResources().getColor(R.color.colorError));
+                            timeBox.setError("Please enter a time that hasn't occurred yet", true);
+                            passedAllTests = false;
+                        }
+                        else {
+                            timeBox.setPrimaryColor(getResources().getColor(R.color.colorPrimary));
+                            timeBox.removeError();
+                        }
+                    }
+                    else{
+                        timeBox.setSecondaryColor(getResources().getColor(R.color.colorError));
+                        timeBox.setErrorColor(getResources().getColor(R.color.colorError));
+                        timeBox.setError("Please enter a time in the correct format", true);
+                        passedAllTests = false;
+                    }
+                }
                 if(dateString.isEmpty()){
                     dateBox.setSecondaryColor(getResources().getColor(R.color.colorError));
                     dateBox.setErrorColor(getResources().getColor(R.color.colorError));
@@ -180,16 +233,6 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                         passedAllTests = false;
                     }
                 }
-                if(reminderString.isEmpty()){
-                    reminderBox.setSecondaryColor(getResources().getColor(R.color.colorError));
-                    reminderBox.setErrorColor(getResources().getColor(R.color.colorError));
-                    reminderBox.setError("Please enter a number", true);
-                    passedAllTests = false;
-                }
-                else {
-                    reminderBox.setPrimaryColor(getResources().getColor(R.color.colorPrimary));
-                    reminderBox.removeError();
-                }
                 if(titleString.isEmpty()){
                     titleBox.setSecondaryColor(getResources().getColor(R.color.colorError));
                     titleBox.setErrorColor(getResources().getColor(R.color.colorError));
@@ -219,7 +262,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                     editor.putBoolean("EventCondition", true).apply();
                     editor.putString("CategoryData", category.getText().toString()).apply();
                     editor.putString("TitleData", title.getText().toString()).apply();
-                    editor.putString("ReminderData", reminder.getText().toString()).apply();
+                    editor.putString("ReminderData", "0").apply();
                     editor.putString("DateData", date.getText().toString()).apply();
 
                     Intent returnIntent = new Intent(AddEvent.this, HomeScreen.class);
@@ -231,12 +274,40 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
         });
     }
 
+    public void fillDateBox(int month, int dayOfMonth, int year){
+        month += 1;
+        if(String.valueOf(month).length() < 2 && String.valueOf(dayOfMonth).length() < 2){
+            date.setText("0" + month + "/0" + dayOfMonth + "/" + year);
+        }
+        else if(String.valueOf(month).length() < 2 && String.valueOf(dayOfMonth).length() >= 2){
+            date.setText("0" + month + "/" + dayOfMonth + "/" + year);
+        }
+        else if(String.valueOf(month).length() >= 2 && String.valueOf(dayOfMonth).length() < 2){
+            date.setText(month + "/0" + dayOfMonth + "/" + year);
+        }
+        else {
+            date.setText(month + "/" + dayOfMonth + "/" + year);
+        }
+    }
+
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        String month = String.valueOf(datePicker.getMonth() + 1);
-        if(month.length() == 1){
-            month = "0" + month;
+        fillDateBox(datePicker.getMonth(), datePicker.getDayOfMonth(), datePicker.getYear());
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        if(String.valueOf(hourOfDay).length() < 2 && String.valueOf(minute).length() < 2){
+            time.setText("0" + hourOfDay + ":0" + minute);
         }
-        date.setText(month + "/" + datePicker.getDayOfMonth() + "/" + datePicker.getYear());
+        else if(String.valueOf(hourOfDay).length() < 2 && String.valueOf(minute).length() >= 2){
+            time.setText("0" + hourOfDay + ":" + minute);
+        }
+        else if(String.valueOf(hourOfDay).length() >= 2 && String.valueOf(minute).length() < 2){
+            time.setText("" + hourOfDay + ":0" + minute);
+        }
+        else {
+            time.setText(hourOfDay + ":" + minute);
+        }
     }
 }
