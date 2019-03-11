@@ -41,6 +41,7 @@ public class SaveEventTask extends AsyncTask<Void, Void, Void> {
         eventList.add(sharedPreferences.getString("TitleData", "").trim());
         eventList.add(sharedPreferences.getString("ReminderData", ""));
         eventList.add(sharedPreferences.getString("DateData", ""));
+        eventList.add(sharedPreferences.getString("TimeData", ""));
         String path = sharedPreferences.getString("FilePath", "");
 
         try {

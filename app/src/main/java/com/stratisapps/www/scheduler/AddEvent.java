@@ -40,6 +40,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
     private TextFieldBoxes timeBox = null;
     private DatePickerDialog datePickerDialog = null;
     private TimePickerDialog timePickerDialog = null;
+    private Button timeFormat = null;
     private boolean passedFormatTest = true;
     private Calendar calendar = Calendar.getInstance();
     private SharedPreferences sharedPreferences = null;
@@ -62,6 +63,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
         dateBox = findViewById(R.id.dateBox);
         time = findViewById(R.id.time);
         timeBox = findViewById(R.id.timeBox);
+        timeFormat = findViewById(R.id.timeFormat);
         datePickerDialog = new DatePickerDialog(this, R.style.DialogColor,this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         timePickerDialog = new TimePickerDialog(this, R.style.DialogColor,this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
         fillDateBox(calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR));
@@ -128,6 +130,17 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(View view) {
                 timePickerDialog.show();
+            }
+        });
+        timeFormat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(timeFormat.getText().equals("AM")){
+                    timeFormat.setText("PM");
+                }
+                else {
+                    timeFormat.setText("AM");
+                }
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -264,6 +277,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                     editor.putString("TitleData", title.getText().toString()).apply();
                     editor.putString("ReminderData", "0").apply();
                     editor.putString("DateData", date.getText().toString()).apply();
+                    editor.putString("TimeData", time.getText().toString() + " " + timeFormat.getText().toString()).apply();
 
                     Intent returnIntent = new Intent(AddEvent.this, HomeScreen.class);
                     startActivity(returnIntent);

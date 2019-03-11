@@ -157,7 +157,7 @@
         app:layout_constraintTop_toTopOf="@+id/reminderSwitch" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/timeFormat"
         android:layout_width="50dp"
         android:layout_height="70dp"
         android:backgroundTint="@color/colorPrimary"
