@@ -11,7 +11,7 @@ import java.util.Date;
 public class OrganizeListTask{
 
     private ArrayList<ArrayList<String>> listOfEvents = null;
-    private SimpleDateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy");
+    private SimpleDateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
 
     protected ArrayList<ArrayList<String>> startProcess(ArrayList<ArrayList<String>>... arrayLists){
         listOfEvents = arrayLists[0];
@@ -46,8 +46,8 @@ public class OrganizeListTask{
             Date dateLeft = null;
             Date dateRight = null;
             try {
-                dateLeft = originalFormat.parse(left.get(leftPos).get(3));
-                dateRight = originalFormat.parse(right.get(rightPos).get(3));
+                dateLeft = originalFormat.parse(left.get(leftPos).get(3) + " " + left.get(leftPos).get(4);
+                dateRight = originalFormat.parse(right.get(rightPos).get(3) + " " + right.get(rightPos).get(4));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
