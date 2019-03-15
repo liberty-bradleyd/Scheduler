@@ -1,170 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    android:id="@+id/scroll"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:screenOrientation="portrait"
-    tools:context=".AddEvent">
+    android:orientation="vertical"
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_blue_dark" />
+        android:layout_height="match_parent"
+        android:screenOrientation="portrait">
 
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:elevation="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back" />
-
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-        android:id="@+id/categoryBox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        app:labelText="Category"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:maxCharacters="16"
-        app:primaryColor="@color/colorPrimary"
-        app:secondaryColor="@color/colorTextBoxLine">
-
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-            android:id="@+id/category"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:maxLines="1" />
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            tools:context=".AddEvent">
 
-    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:color/holo_blue_dark" />
 
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-        android:id="@+id/titleBox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="103dp"
-        android:ems="10"
-        app:labelText="Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/categoryBox"
-        app:primaryColor="@color/colorPrimary"
-        app:secondaryColor="@color/colorTextBoxLine">
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:elevation="4dp"
+               android:layout_marginTop="-50dp"
+                app:srcCompat="@drawable/back" />
 
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:maxLines="1" />
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/categoryBox"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center_horizontal"
+                android:ems="10"
+                app:labelText="Category"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:maxCharacters="16"
+                app:primaryColor="@color/colorPrimary"
+                app:secondaryColor="@color/colorTextBoxLine">
 
-    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1" />
 
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-        android:id="@+id/dateBox"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="103dp"
-        android:ems="10"
-        app:endIcon="@drawable/date"
-        app:labelText="Date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/titleBox"
-        app:primaryColor="@color/colorPrimary"
-        app:secondaryColor="@color/colorTextBoxLine">
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:inputType="date"
-            android:maxLines="1" />
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/titleBox"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:ems="10"
+                app:labelText="Title"
+                app:layout_constraintTop_toTopOf="@+id/categoryBox"
+                app:primaryColor="@color/colorPrimary"
+                app:secondaryColor="@color/colorTextBoxLine">
 
-    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1" />
 
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-        android:id="@+id/timeBox"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="103dp"
-        android:ems="10"
-        app:endIcon="@drawable/time"
-        app:labelText="Time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dateBox"
-        app:primaryColor="@color/colorPrimary"
-        app:secondaryColor="@color/colorTextBoxLine">
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-            android:id="@+id/time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
-            android:inputType="time"
-            android:maxLines="1" />
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/dateBox"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:ems="10"
+                app:endIcon="@drawable/date"
+                app:labelText="Date"
+                app:layout_constraintTop_toTopOf="@+id/titleBox"
+                app:primaryColor="@color/colorPrimary"
+                app:secondaryColor="@color/colorTextBoxLine">
 
-    </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="date"
+                    android:maxLines="1" />
 
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/reminderSwitch"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="103dp"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        android:text="Reminder"
-        android:textColor="@color/colorTextBoxLine"
-        android:theme="@style/SwitchTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/timeBox" />
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-    <Button
-        android:id="@+id/addEvent"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="160dp"
-        android:background="@drawable/oval_button_design"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:elevation="4dp"
-        android:text="Add"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/reminderSwitch" />
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/timeBox"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:ems="10"
+                app:endIcon="@drawable/time"
+                app:labelText="Time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dateBox"
+                app:primaryColor="@color/colorPrimary"
+                app:secondaryColor="@color/colorTextBoxLine">
 
-    <Button
-        android:id="@+id/timeFormat"
-        android:layout_width="50dp"
-        android:layout_height="70dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="AM"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintStart_toEndOf="@+id/timeBox"
-        app:layout_constraintTop_toTopOf="@+id/timeBox" />
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="time"
+                    android:maxLines="1" />
 
-</android.support.constraint.ConstraintLayout>
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+            <Button
+                android:id="@+id/timeFormat"
+                android:layout_width="50dp"
+                android:layout_height="76dp"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="-70dp"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="AM"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintStart_toEndOf="@+id/timeBox"
+                app:layout_constraintTop_toTopOf="@+id/timeBox" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/reminderSwitch"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                android:text="Reminder"
+                android:textColor="@color/colorTextBoxLine"
+                android:theme="@style/SwitchTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/timeBox" />
+
+            <Button
+                android:id="@+id/addEvent"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/oval_button_design"
+                android:backgroundTint="@android:color/holo_blue_dark"
+                android:elevation="4dp"
+                android:text="Add"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/reminderSwitch" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
